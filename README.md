@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PocketGPT
+
+PocketGPT is your one-stop solution for all types of AI models. Whether you are looking for language models, vision models, or any other AI-powered tools, PocketGPT has got you covered.
+
+## Features
+
+- **Diverse AI Models**: Access to a wide range of AI models including GPT, BERT, DALL-E, and many more.
+- **Easy Integration**: Simple API to integrate PocketGPT into your projects.
+- **Scalable**: Designed to scale with your needs, from individual developers to large enterprises.
+- **Community Driven**: Open-source project with contributions from developers all around the world.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 14.x or later
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/Subhadeep3902/pocketgpt.git
+    cd pocketgpt
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Install the dependencies:
+    ```sh
+    npm install
+    # or
+    yarn install
+    ```
 
-## Learn More
+3. Run the development server:
+    ```sh
+    npm run dev
+    # or
+    yarn dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open your browser and navigate to `http://localhost:3000` to see the application running.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Adding a New AI Model
 
-## Deploy on Vercel
+To add a new AI model, follow these steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a new folder in the `app` directory named `<ai-model-name>` inside it create a `page.tsx`:
+   Example:
+    ```tsx
+    // src/app/gemini/page.tsx
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    export default function page() {
+        return (
+            <div>
+                <h1>Gemini AI chatbot</h1>
+                {/*Implement the chatbot according to the UI there*/}
+            </div>
+        );
+    };
+    ```
+
+
+## Contributing
+
+We welcome contributions from everyone. Making a successful contribution ?? ... add urself up in the `Contributing.md` file
+
+## Contact
+
+For any inquiries or issues, please reach out to us at [subha9.5roy350@gmail.com](mailto:subha9.5roy350@gmail.com).
+Whatsapp: +91 86373 73116
+
+---
+
+<p align="center">
+    <img src="path/to/your/illustration.png" alt="PocketGPT Illustration" width="600"/>
+</p>
