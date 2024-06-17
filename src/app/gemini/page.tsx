@@ -1,16 +1,87 @@
 "use client";
 
 import React, { useState, FormEvent, useRef, useEffect } from "react";
+import {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+  ChatSession,
+} from "@google/generative-ai";
 
 interface Message {
   text: string;
   type: "user" | "ai";
 }
 
+const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const MODEL_NAME = "gemini-1.0-pro-001";
+
 const Gemini: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const messageEndRef = useRef<HTMLDivElement>(null);
+  const [chat, setChat] = useState<ChatSession>();
+
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const generationConfig = {
+    temperature: 0.5,
+    topK: 1,
+    topP: 1,
+    maxOutputTokens: 2048,
+  };
+  const safetySettings = [
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+  ];
+
+  useEffect(() => {
+    const initChat = async () => {
+      try {
+        const newChat = genAI
+          .getGenerativeModel({ model: MODEL_NAME })
+          .startChat({
+            generationConfig,
+            safetySettings,
+            history: messages.map((message) => ({
+              text: message.text,
+              role: message.type,
+              parts: [],
+            })),
+          });
+        setChat(newChat);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    initChat();
+  }, []);
+
+  const getAIoutput = async () => {
+    try {
+      if (chat) {
+        const result = await chat.sendMessage(inputValue);
+        return result.response.text();
+      }
+      return "Failed to send message";
+    } catch (error) {
+      console.error("Failed to send message");
+      return "Failed to send message";
+    }
+  };
 
   useEffect(() => {
     // Scroll to the bottom of the message container when new messages are added
@@ -19,7 +90,7 @@ const Gemini: React.FC = () => {
     }
   }, [messages]);
 
-  const handleMessageSubmit = (
+  const handleMessageSubmit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | FormEvent
   ) => {
     event.preventDefault();
@@ -31,14 +102,11 @@ const Gemini: React.FC = () => {
       { text: trimmedMessage, type: "user" },
     ]);
     setInputValue("");
-
-    // Simulate AI reply (you can replace this with actual AI logic)
-    setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: "Imagine cool AI reply 😎", type: "ai" },
-      ]);
-    }, 500);
+    const aiReply = await getAIoutput();
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: aiReply, type: "ai" },
+    ]);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +138,9 @@ const Gemini: React.FC = () => {
                 <div
                   key={index}
                   className={`mb-4 flex ${
-                    message.type === "ai" ? "flex-row" : "flex-row md:flex-row-reverse"
+                    message.type === "ai"
+                      ? "flex-row"
+                      : "flex-row md:flex-row-reverse"
                   }`}
                 >
                   <img
