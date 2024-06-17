@@ -71,8 +71,3 @@ We welcome contributions from everyone. Making a successful contribution ?? ... 
 For any inquiries or issues, please reach out to us at [subha9.5roy350@gmail.com](mailto:subha9.5roy350@gmail.com).
 Whatsapp: +91 86373 73116
 
----
-
-<p align="center">
-    <img src="path/to/your/illustration.png" alt="PocketGPT Illustration" width="600"/>
-</p>
