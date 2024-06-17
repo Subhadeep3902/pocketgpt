@@ -122,7 +122,7 @@ const Gemini: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-br from-black via-[#1f1f1f] to-black flex flex-col items-center justify-between h-screen p-3 px-5 md:px-52 overflow-y-hidden">
-      <div className="h-full w-full flex flex-col items-center justify-center bg-[#1f1f1f] bg-opacity-70 backdrop-blur-md rounded-lg overflow-y-scroll">
+      <div className="h-full w-full flex flex-col items-center justify-center bg-[#1f1f1f] bg-opacity-70 backdrop-blur-md rounded-lg overflow-y-scroll scrollbar-thin scrollbar-webkit">
         {messages.length === 0 ? (
           <>
             <h1 className="text-white text-3xl font-bold mb-2">
