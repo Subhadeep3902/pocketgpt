@@ -7,6 +7,7 @@ import {
   HarmBlockThreshold,
   ChatSession,
 } from "@google/generative-ai";
+import Markdown from 'react-markdown'
 
 interface Message {
   text: string;
@@ -120,8 +121,8 @@ const Gemini: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-black via-[#1f1f1f] to-black flex flex-col items-center justify-between h-screen p-3 px-5 md:px-52">
-      <div className="h-full w-full flex flex-col items-center justify-center bg-[#1f1f1f] bg-opacity-70 backdrop-blur-md rounded-lg">
+    <div className="bg-gradient-to-br from-black via-[#1f1f1f] to-black flex flex-col items-center justify-between h-screen p-3 px-5 md:px-52 overflow-y-hidden">
+      <div className="h-full w-full flex flex-col items-center justify-center bg-[#1f1f1f] bg-opacity-70 backdrop-blur-md rounded-lg overflow-y-scroll">
         {messages.length === 0 ? (
           <>
             <h1 className="text-white text-3xl font-bold mb-2">
@@ -132,8 +133,8 @@ const Gemini: React.FC = () => {
             </h1>
           </>
         ) : (
-          <div className="w-full h-full flex flex-col text-white overflow-hidden">
-            <div className="flex-1 p-4 overflow-y-auto">
+          <div className="w-full h-full flex flex-col text-white">
+            <div className="flex-1 p-4">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -159,7 +160,9 @@ const Gemini: React.FC = () => {
                         : "bg-transparent md:bg-[rgba(214,90,49,0.8)] text-white max-w-md w-auto ml-4 md:ml-0 mr-0 md:mr-4 rounded-lg md:rounded-3xl"
                     }`}
                   >
+                  <Markdown>
                     {message.text}
+                  </Markdown>
                   </div>
                 </div>
               ))}
