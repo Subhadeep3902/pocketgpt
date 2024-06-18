@@ -44,6 +44,7 @@ const config: Config = {
 
       addUtilities(newUtilities, options);
     }),
+    require('daisyui'),
   ],
 };
 export default config;
