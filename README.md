@@ -1,4 +1,7 @@
 # PocketGPT
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 PocketGPT is your one-stop solution for all types of AI models. Whether you are looking for language models, vision models, or any other AI-powered tools, PocketGPT has got you covered.
 
@@ -61,13 +64,28 @@ To add a new AI model, follow these steps:
     };
     ```
 
+## Contributors ✨
 
-## Contributing
+Thanks goes to these wonderful people:
 
-We welcome contributions from everyone. Making a successful contribution ?? ... add urself up in the `Contributing.md` file
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Subhadeep3902"><img src="https://avatars.githubusercontent.com/u/154616787?v=4?s=50" width="50px;" alt="Subhadeep3902"/><br /><sub><b>Subhadeep3902</b></sub></a><br /><a href="https://github.com/Subhadeep3902/pocketgpt/commits?author=Subhadeep3902" title="Code">💻</a> <a href="#projectManagement-Subhadeep3902" title="Project Management">📆</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 
 ## Contact
 
 For any inquiries or issues, please reach out to us at [subha9.5roy350@gmail.com](mailto:subha9.5roy350@gmail.com).
 Whatsapp: +91 86373 73116
-
