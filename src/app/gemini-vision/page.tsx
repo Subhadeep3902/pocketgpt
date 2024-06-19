@@ -1,7 +1,14 @@
+"use client";
+
+import FileInputModal from "@/components/file-input-modal";
+import React, { useState } from "react";
 import { FiSend } from "react-icons/fi";
 import { LuImagePlus } from "react-icons/lu";
 
 export default function GeminiVison() {
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="h-screen bg-base-100">
       <div className="h-screen md:rounded-3xl md:mx-96 bg-base-300 p-2 overflow-hidden flex flex-col justify-between">
@@ -46,9 +53,16 @@ export default function GeminiVison() {
 
         {/* Input Bar */}
         <div className="h-20 flex gap-2">
-          <button className="btn btn-square btn-accent btn-outline rounded-2xl">
+          <button
+            className="btn btn-square btn-accent btn-outline rounded-2xl"
+            onClick={() => setIsModalOpen(true)}
+          >
             <LuImagePlus size={25} />
           </button>
+          <FileInputModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />
           <input
             type="text"
             placeholder="Type here"
