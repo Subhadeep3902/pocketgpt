@@ -1,88 +1,14 @@
 "use client";
 
-import React, { useState, FormEvent, useRef, useEffect } from "react";
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-  ChatSession,
-} from "@google/generative-ai";
+import React, { useRef, useEffect } from "react";
 import MarkdownRenderer from "@/components/markdown-renderer";
-
-interface Message {
-  text: string;
-  type: "user" | "ai";
-}
-
-const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-const MODEL_NAME = "gemini-1.0-pro-001";
+import { useChat } from "@ai-sdk/react";
 
 const Gemini: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
   const messageEndRef = useRef<HTMLDivElement>(null);
-  const [chat, setChat] = useState<ChatSession>();
-
-  const genAI = new GoogleGenerativeAI(API_KEY);
-  const generationConfig = {
-    temperature: 0.5,
-    topK: 1,
-    topP: 1,
-    maxOutputTokens: 2048,
-  };
-  const safetySettings = [
-    {
-      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-    {
-      category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    },
-  ];
-
-  useEffect(() => {
-    const initChat = async () => {
-      try {
-        const newChat = genAI
-          .getGenerativeModel({ model: MODEL_NAME })
-          .startChat({
-            generationConfig,
-            safetySettings,
-            history: messages.map((message) => ({
-              text: message.text,
-              role: message.type,
-              parts: [],
-            })),
-          });
-        setChat(newChat);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    initChat();
-  }, []);
-
-  const getAIoutput = async () => {
-    try {
-      if (chat) {
-        const result = await chat.sendMessage(inputValue);
-        return result.response.text();
-      }
-      return "Failed to send message";
-    } catch (error) {
-      console.error("Failed to send message");
-      return "Failed to send message";
-    }
-  };
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: "api/chat/gemini",
+  });
 
   useEffect(() => {
     // Scroll to the bottom of the message container when new messages are added
@@ -90,35 +16,6 @@ const Gemini: React.FC = () => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-
-  const handleMessageSubmit = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | FormEvent
-  ) => {
-    event.preventDefault();
-    const trimmedMessage = inputValue.trim();
-    if (!trimmedMessage) return;
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: trimmedMessage, type: "user" },
-    ]);
-    setInputValue("");
-    const aiReply = await getAIoutput();
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: aiReply, type: "ai" },
-    ]);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleMessageSubmit(event);
-    }
-  };
 
   return (
     <div className="bg-gradient-to-br from-black via-[#1f1f1f] to-black flex flex-col items-center justify-between h-screen p-3 px-5 md:px-52 overflow-y-hidden">
@@ -138,7 +35,7 @@ const Gemini: React.FC = () => {
               {messages.map((message, index) => (
                 <div
                   className={`chat ${
-                    message.type === "ai"
+                    message.role === "assistant"
                       ? "chat-start"
                       : "chat-start md:chat-end"
                   }`}
@@ -148,10 +45,10 @@ const Gemini: React.FC = () => {
                     <div className="w-10 rounded-full">
                       <img
                         alt={`${
-                          message.type === "ai" ? "Gemini" : "User"
+                          message.role === "assistant" ? "Gemini" : "User"
                         } Avatar`}
                         src={
-                          message.type === "ai"
+                          message.role === "assistant"
                             ? "https://avatar.iran.liara.run/public/87"
                             : "https://avatars.jakerunzer.com/asdf"
                         }
@@ -159,16 +56,16 @@ const Gemini: React.FC = () => {
                     </div>
                   </div>
                   <div className="chat-header">
-                    {message.type === "ai" ? "Gemini" : "User"}
+                    {message.role === "assistant" ? "Gemini" : "User"}
                   </div>
                   <div
                     className={`text-white chat-bubble ${
-                      message.type === "ai"
+                      message.role === "assistant"
                         ? "bg-[rgba(34,40,49,0.8)]"
                         : "bg-transparent md:bg-[rgba(214,90,49,0.8)]"
                     } max-w-2xl`}
                   >
-                    <MarkdownRenderer content={message.text} />
+                    <MarkdownRenderer content={message.content} />
                   </div>
                 </div>
               ))}
@@ -178,42 +75,26 @@ const Gemini: React.FC = () => {
         )}
       </div>
 
-      <div className="w-full flex flex-col items-start justify-center h-20 md:h-40 mt-5">
-        <div className="md:flex space-x-4 mb-4 hidden">
-          {[
-            "Make Shorter",
-            "Make longer",
-            "More professional",
-            "More casual",
-            "Paraphrase",
-          ].map((text, index) => (
-            <button
-              key={index}
-              className="bg-[#1f1f1f] text-white px-4 py-2 rounded-md"
-              onClick={() => setInputValue(text)}
-            >
-              {text}
-            </button>
-          ))}
-        </div>
-
-        <div className="w-full flex items-center bg-[#1f1f1f] bg-opacity-70 backdrop-blur-md rounded-md px-4 py-2 mb-4">
+      <div className="w-full flex flex-col items-start justify-center h-20 mt-5">
+        <form
+          className="w-full flex items-center bg-[#1f1f1f] bg-opacity-70 backdrop-blur-md rounded-md px-4 py-2 mb-4"
+          onSubmit={handleSubmit}
+        >
           <input
-            type="text"
-            value={inputValue}
+            name="prompt"
+            value={input}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
+            id="input"
             placeholder="Enter your prompt"
             className="bg-transparent text-white outline-none flex-grow"
           />
           <button
             type="submit"
-            onClick={handleMessageSubmit}
             className="bg-orange-500 text-white px-4 py-2 rounded-md ml-4"
           >
             Send
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
