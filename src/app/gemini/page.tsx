@@ -137,30 +137,38 @@ const Gemini: React.FC = () => {
             <div className="flex-1 p-4">
               {messages.map((message, index) => (
                 <div
-                  key={index}
-                  className={`mb-4 flex ${
+                  className={`chat ${
                     message.type === "ai"
-                      ? "flex-row"
-                      : "flex-row md:flex-row-reverse"
+                      ? "chat-start"
+                      : "chat-start md:chat-end"
                   }`}
+                  key={index}
                 >
-                  <img
-                    src={
-                      message.type === "ai"
-                        ? "https://avatar.iran.liara.run/public/87"
-                        : "https://avatars.jakerunzer.com/asdf"
-                    }
-                    alt="avatar"
-                    className="w-10 h-10 rounded-full"
-                  />
+                  <div className="chat-image avatar">
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt={`${
+                          message.type === "ai" ? "Gemini" : "User"
+                        } Avatar`}
+                        src={
+                          message.type === "ai"
+                            ? "https://avatar.iran.liara.run/public/87"
+                            : "https://avatars.jakerunzer.com/asdf"
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="chat-header">
+                    {message.type === "ai" ? "Gemini" : "User"}
+                  </div>
                   <div
-                    className={`p-4 shadow-lg backdrop-blur-md ${
+                    className={`text-white chat-bubble ${
                       message.type === "ai"
-                        ? "bg-[rgba(34,40,49,0.8)] text-gray-100 max-w-2xl ml-4 w-auto rounded-lg"
-                        : "bg-transparent md:bg-[rgba(214,90,49,0.8)] text-white max-w-md w-auto ml-4 md:ml-0 mr-0 md:mr-4 rounded-lg md:rounded-3xl"
-                    }`}
+                        ? "bg-[rgba(34,40,49,0.8)]"
+                        : "bg-transparent md:bg-[rgba(214,90,49,0.8)]"
+                    } max-w-2xl`}
                   >
-                  <MarkdownRenderer content={message.text} />
+                    <MarkdownRenderer content={message.text} />
                   </div>
                 </div>
               ))}
