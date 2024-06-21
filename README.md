@@ -1,6 +1,6 @@
 # PocketGPT
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 PocketGPT is your one-stop solution for all types of AI models. Whether you are looking for language models, vision models, or any other AI-powered tools, PocketGPT has got you covered.
@@ -75,6 +75,7 @@ Thanks goes to these wonderful people:
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Subhadeep3902"><img src="https://avatars.githubusercontent.com/u/154616787?v=4?s=50" width="50px;" alt="Subhadeep3902"/><br /><sub><b>Subhadeep3902</b></sub></a><br /><a href="https://github.com/Subhadeep3902/pocketgpt/commits?author=Subhadeep3902" title="Code">💻</a> <a href="#projectManagement-Subhadeep3902" title="Project Management">📆</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/deepesh611"><img src="https://avatars.githubusercontent.com/u/123585104?v=4?s=50" width="50px;" alt="Deepesh Patil"/><br /><sub><b>Deepesh Patil</b></sub></a><br /><a href="https://github.com/Subhadeep3902/pocketgpt/commits?author=deepesh611" title="Code">💻</a> <a href="https://github.com/Subhadeep3902/pocketgpt/commits?author=deepesh611" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
