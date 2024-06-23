@@ -1,0 +1,36 @@
+{
+  "projectName": "pocketgpt",
+  "projectOwner": "Subhadeep3902",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 50,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Subhadeep3902",
+      "name": "Subhadeep3902",
+      "avatar_url": "https://avatars.githubusercontent.com/u/154616787?v=4",
+      "profile": "https://github.com/Subhadeep3902",
+      "contributions": [
+        "code",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "deepesh611",
+      "name": "Deepesh Patil",
+      "avatar_url": "https://avatars.githubusercontent.com/u/123585104?v=4",
+      "profile": "https://github.com/deepesh611",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": false
+}
