@@ -1,8 +1,24 @@
-export default function Home() {
+import ChatBots from "@/components/home/chatbots";
+import Footer from "@/components/home/footer";
+import Hero from "@/components/home/hero";
+import Navbar from "@/components/home/navbar";
+import OpenSource from "@/components/home/open-source";
+import Pricing from "@/components/home/pricing";
+import Testimonials from "@/components/home/testimonials";
+import UsageSteps from "@/components/home/usage-steps";
+
+const HomePage = () => {
   return (
-    <div>
-      <h1>PocketGPT</h1>
-      <p>Engage with all your favourite AI models here at one place</p>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+      <UsageSteps />
+      <ChatBots />
+      <Testimonials />
+      <Pricing />
+      <OpenSource />
+      <Footer />
+    </>
   );
-}
+};
+export default HomePage;
