@@ -46,5 +46,8 @@ const config: Config = {
     }),
     require('daisyui'),
   ],
+  daisyui: {
+    themes: ["light", "dark", "dim"],
+  },
 };
 export default config;
